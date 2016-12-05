@@ -1,0 +1,5 @@
+<application>
+  <component name="ExternalResourceManagerImpl">
+    <resource url="http://jakarta.apache.org/log4j/" location="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-core/2.0-beta9/log4j-core-2.0-beta9.jar" />
+  </component>
+</application>
