@@ -1,5 +1,7 @@
 <application>
   <component name="ExternalResourceManagerImpl">
     <resource url="http://jakarta.apache.org/log4j/" location="$MAVEN_REPOSITORY$/log4j/log4j/1.2.13/log4j-1.2.13.jar!/org/apache/log4j/xml/log4j.dtd" />
+    <resource url="log4j.dtd" location="log4j.dtd" />
+    <ignored-resource url="log4j.dtd" />
   </component>
 </application>
