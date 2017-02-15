@@ -6,8 +6,12 @@
           <option name="url" value="https://github.com/chizhdiana/Repository.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/apache/jmeter.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="C:\Users\Diana\IdeaProjects" />
+    <option name="cloneParentDir" value="C:\Users\Diana\IdeaProjects\rest_project" />
   </component>
 </application>
