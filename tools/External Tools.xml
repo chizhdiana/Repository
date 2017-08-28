@@ -1,0 +1,9 @@
+<toolSet name="External Tools">
+  <tool name="Robot Framework" showInMainMenu="true" showInEditor="true" showInProject="true" showInSearchPopup="true" disabled="false" useConsole="true" showConsoleOnStdOut="false" showConsoleOnStdErr="false" synchronizeAfterRun="true">
+    <exec>
+      <option name="COMMAND" value="C:\Program Files\robotframework-3.0\src\bin\pybot.bat" />
+      <option name="PARAMETERS" value="testsuite" />
+      <option name="WORKING_DIRECTORY" value="C:/Users/Diana/PycharmProjects/testsuite/testsuite" />
+    </exec>
+  </tool>
+</toolSet>

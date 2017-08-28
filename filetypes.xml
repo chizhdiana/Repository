@@ -1,8 +1,14 @@
 <application>
   <component name="FileTypeManager" version="17">
+    <ignoreFiles list="*$py.class;*.hprof;*.pyc;*.pyo;*.rbc;*.yarb;*~;.DS_Store;.git;.hg;.svn;CVS;RCS;SCCS;__pycache__;_svn;rcs;vssver.scc;vssver2.scc;" />
     <extensionMap>
-      <mapping pattern="Лист Microsoft Office Excel (.xlsx)" type="Native" />
-      <mapping pattern="testng" type="PLAIN_TEXT" />
+      <mapping pattern="book" type="PLAIN_TEXT" />
+      <mapping pattern="relativity" type="PLAIN_TEXT" />
+      <mapping pattern="bfile" type="PLAIN_TEXT" />
+      <mapping pattern="definition" type="PLAIN_TEXT" />
+      <mapping ext="csv" type="PLAIN_TEXT" />
+      <mapping ext="bd" type="PLAIN_TEXT" />
+      <mapping pattern="test_zoo" type="Python" />
     </extensionMap>
   </component>
 </application>
