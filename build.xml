@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<project name="CPT" basedir="." xmlns:ac="antlib:net.sf.antcontrib">
+
+	<description>TestAutomationGuru - Continuous Performance Testing Process</description>
+
+	<!-- Read the test properties from build.propertis -->
+	<property file="build.properties" />
+	
+	<!-- System & other ant properties -->
+	<property environment="env" />
+	<property name="jmeter.home" value="${env.JMETER_HOME}"/>
+	<property name="test.path" value="${basedir}/test"/>
+	<property name="test.name" value="test.jmx"/>
+	<property name="test.result.path" value="${basedir}/result"/>
+        <property name="test.result.log" value="${basedir}/log"/>
+	<property name="lib.dir" value="${basedir}/lib"/>
+
+	<!-- set classpath with the path containing jars -->
+    <path id="jmeter.classpath">
+		<fileset dir="${lib.dir}">
+				<include name="*.jar"/>
+		</fileset>
+    </path>
+	<pathconvert pathsep=":"  property="jmeter.classpath" refid="jmeter.classpath"></pathconvert>
+
+	<!-- call all tasks in this sequence -->
+	<target name="all"
+			depends="clean,show-test-properties,run,report,generate-chart"/>
+	
+	<!-- clean project by removing all the temp files -->
+	<target name="clean">
+	     <delete dir="${test.result.path}"/>
+		 <delete dir="${test.result.log}"/>
+	</target>
+	
+	<!-- show test properties -->
+	<target name="show-test-properties">
+		<echo>JMETER_HOME				: ${jmeter.home}</echo>
+		<echo>TEST_PATH				: ${test.path}</echo>
+		<echo>TEST_NAME				: ${test.name}</echo>
+		<echo>THREADGROUP_COUNT			: ${threadgroup.count}</echo>
+		<echo>THREADGROUP_RAMPUP			: ${threadgroup.rampup}</echo>
+		<echo>THREADGROUP_DURATION		: ${threadgroup.duration}</echo>
+	</target>	
+
+	<!-- jmeter ant task -->
+	<taskdef
+	    name="jmeter"
+	    classpathref="jmeter.classpath"
+	    classname="org.programmerplanet.ant.taskdefs.jmeter.JMeterTask"/>
+
+	<!-- To run jmeter test -->
+	<target name="run" depends="clean, show-test-properties">
+		
+		<!-- create dir -->
+		<mkdir  dir="${test.result.path}"/>
+		<mkdir  dir="${test.result.log}"/>
+		
+		<jmeter
+		   jmeterhome="${jmeter.home}"
+		    testplan ="${test.path}/${test.name}"
+                    resultlog="${test.result.path}/result.jtl">
+			<!--
+
+            <jvmarg value="-Xincgc"/>
+            <jvmarg value="-Xmx128m"/>
+            <jvmarg value="-Dproperty=value"/>
+            <jmeterarg value="-qextra.properties"/>
+        
+-->
+<!--  Force suitable defaults  -->
+			<property name="jmeter.save.saveservice.output_format" value="xml"/>
+			<property name="jmeter.save.saveservice.assertion_results" value="all"/>
+			<property name="jmeter.save.saveservice.thread_counts" value="true"/>
+			<property name="jmeter.save.saveservice.bytes" value="true"/>
+			<property name="jmeter.save.saveservice.response_data.on_error" value="true"/>
+			<!-- values for UDV -->
+			<property name="threadgroup.count" value="${threadgroup.count}"/>
+			<property name="threadgroup.rampup" value="${threadgroup.rampup}"/>
+			<property name="threadgroup.duration" value="${threadgroup.duration}"/>
+		</jmeter>
+	</target>
+<property name="lib.dir" value="${jmeter.home}/lib"/>
+    <property name="xalan.jar" value="${lib.dir}/xalan-2.7.2.jar"/>
+    <property name="serializer.jar" value="${lib.dir}/serializer-2.7.2.jar"/>
+<!--
+ Use xalan copy from JMeter lib directory to ensure consistent processing with Java 1.4+ 
+-->
+<path id="xslt.classpath">
+ <pathelement location="${xalan.jar}"/>
+       <pathelement location="${serializer.jar}"/>
+</path>
+
+<target name="report" depends="xslt-report">
+<echo>Report generated at ${report.datestamp}</echo>
+</target>
+	
+	<target name="xslt-report" depends="_message_xalan">
+		<tstamp><format property="report.datestamp" pattern="yyyy/MM/dd HH:mm"/></tstamp>
+		<copy file="${basedir}/src/expand.png" tofile="${test.result.path}/expand.png"/>
+        <copy file="${basedir}/src/collapse.png" tofile="${test.result.path}/collapse.png"/>
+		<xslt
+			classpathref="xslt.classpath"
+			force="true"
+		    in="${test.result.path}/result.jtl"
+		    out="${test.result.path}/result.html"
+		    style="${basedir}/src/jmeter-results-detail-report_21.xsl">
+			<param name="showData" expression="true"/>
+			<param name="titleReport" expression="CPT--Aggregate-Report"/>
+			<param name="dateReport" expression="${report.datestamp}"/>
+		</xslt>
+		<echo>Report generated at ${report.datestamp}</echo>
+	</target>
+
+
+
+
+
+<!--  Check that the xalan libraries are present  -->
+<condition property="xalan.present">
+<and>
+<!--  No need to check all jars; just check a few  -->
+<available classpathref="xslt.classpath" classname="org.apache.xalan.processor.TransformerFactoryImpl"/>
+<available classpathref="xslt.classpath" classname="org.apache.xml.serializer.ExtendedContentHandler"/>
+</and>
+</condition>
+
+<target name="_message_xalan" unless="xalan.present">
+<echo>Cannot find all xalan and/or serialiser jars</echo>
+<echo>The XSLT formatting may not work correctly.</echo>
+<echo>Cannot find all xalan and/or serialiser jars</echo>
+		<echo>The XSLT formatting may not work correctly.</echo>
+		<echo>Check you have ${xalan.jar} and ${serializer.jar}</echo>
+
+</target>
+
+
+	<taskdef uri="antlib:net.sf.antcontrib" resource="net/sf/antcontrib/antlib.xml">
+	    <classpath>
+	    	<pathelement location="${lib.dir}/ant-contrib-1.0b3.jar"/>
+	  	</classpath>
+	</taskdef>
+
+	<target name="generate-chart">
+			<!-- copy this jar to the JMETER_HOME/lib/ext folder -->
+			<copy file="${lib.dir}/cmdrunner-2.0.jar" tofile="${jmeter.home}/lib/ext/cmdrunner-2.0.jar"/>
+		    <ac:for param="reportType" list="LatenciesOverTime,TimesVsThreads,ResponseTimesOverTime,ThreadsStateOverTime,TransactionsPerSecond,ResponseTimesPercentiles,ResponseTimesDistribution">
+			      <sequential>
+				        <java  jar="${jmeter.home}/lib/ext/cmdrunner-2.0.jar" fork="true">
+					          <arg value="--tool"/>
+					          <arg value="Reporter"/>
+					          <arg value="--generate-png"/>
+					          <arg value="${test.result.path}/@{reportType}.png"/>
+					          <arg value="--input-jtl"/>
+					          <arg value="${test.result.path}/result.jtl"/>
+					          <arg value="--plugin-type"/>
+					          <arg value="@{reportType}"/>
+				        	  <arg value="--aggregate-rows"/>
+				        	  <arg value="yes"/>
+					          <arg value="--limit-rows"/>
+					          <arg value="20"/>				        	
+					          <arg value="--width"/>
+					          <arg value="800"/>
+					          <arg value="--height"/>
+					          <arg value="600"/>
+				        </java>
+			      </sequential>
+		    </ac:for>
+	</target>
+<!-- Downloads JMeter Plugins Manager/CMDRunner jar files & Places them in appropriate folders -->
+	<target name="download-plugin-manager">
+		<get src="${plugins.manager.src}" 
+			dest="${jmeter.home}/lib/ext/jmeter-plugins-manager.jar"/>
+		<get src="${cmdrunner.src}" 
+			dest="${jmeter.home}/lib/cmdrunner-2.0.jar"/>	 
+		<java  classname="org.jmeterplugins.repository.PluginManagerCMDInstaller">
+			<classpath>
+				<pathelement location="${jmeter.home}/lib/ext/jmeter-plugins-manager.jar"/>
+			</classpath>
+		</java>			 
+	</target>
+
+	<!-- Installs all the required plugins -->
+	<target name="install-plugins" depends="download-plugin-manager">
+		  <exec executable="cmd">
+			<arg value="/c"/>
+			<arg value="${jmeter.home}/bin/PluginsManagerCMD"/>
+			<arg value="install"/>
+			<arg value="${plugins.list}"/>
+		  </exec>
+	</target>		
+	
+
+	
+</project>
