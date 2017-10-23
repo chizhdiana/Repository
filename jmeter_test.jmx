@@ -1,0 +1,1801 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="3.1" jmeter="3.1 r1770033">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="test" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="false">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="threadgroup.count" elementType="Argument">
+            <stringProp name="Argument.name">threadgroup.count</stringProp>
+            <stringProp name="Argument.value">${_P(threadgroup.count,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="threadgroup.rampup" elementType="Argument">
+            <stringProp name="Argument.name">threadgroup.rampup</stringProp>
+            <stringProp name="Argument.value">${_P(threadgroup.rampup,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">test-spho.pharmbase.com.ua/</stringProp>
+        <stringProp name="HTTPSampler.port">80</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        <stringProp name="HTTPSampler.protocol"></stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">AccessKey</stringProp>
+            <stringProp name="Header.value">center_1</stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Token</stringProp>
+            <stringProp name="Header.value">${token}</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1489505213000</longProp>
+        <longProp name="ThreadGroup.end_time">1489505213000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration">${threadgroup.duration}</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <SyncTimer guiclass="TestBeanGUI" testclass="SyncTimer" testname="Synchronizing Timer" enabled="false">
+          <intProp name="groupSize">20</intProp>
+          <longProp name="timeoutInMs">0</longProp>
+        </SyncTimer>
+        <hashTree/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Simple Controller" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="auth" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/api/auth</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="false">
+              <stringProp name="JSONPostProcessor.referenceNames">token</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.token</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">NOT VALUES</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.JSONPathExtractor guiclass="com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.gui.JSONPathExtractorGui" testclass="com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.JSONPathExtractor" testname="jp@gc - JSON Path Extractor" enabled="true">
+              <stringProp name="VAR">token</stringProp>
+              <stringProp name="JSONPATH">$.token</stringProp>
+              <stringProp name="DEFAULT">NOT_FOUND</stringProp>
+              <stringProp name="VARIABLE"></stringProp>
+              <stringProp name="SUBJECT">BODY</stringProp>
+            </com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.JSONPathExtractor>
+            <hashTree/>
+          </hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="false">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">token</stringProp>
+            <stringProp name="RegexExtractor.regex">&quot;token&quot;:&quot;(.+?)&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="List corps" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value"></stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/api/bi/corps</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="id_corp_Regular Expression Extractor" enabled="false">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">id_org</stringProp>
+              <stringProp name="RegexExtractor.regex">&quot;id_org&quot;:(\d+)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor" enabled="false">
+              <boolProp name="displayJMeterProperties">false</boolProp>
+              <boolProp name="displayJMeterVariables">true</boolProp>
+              <boolProp name="displaySamplerProperties">true</boolProp>
+              <boolProp name="displaySystemProperties">false</boolProp>
+            </DebugPostProcessor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="1206628252">${corp}</stringProp>
+                <stringProp name="3355">id</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="false">
+              <stringProp name="JSONPostProcessor.referenceNames">id_org</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$..id_org</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">2</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">NOT FOUND</stringProp>
+              <stringProp name="Sample.scope">all</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Save_Corp_to_csv" enabled="false">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">49e0c6e2-8fb3-4426-a365-873f5678b707</stringProp>
+              <stringProp name="script">import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Cell;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import groovy.json.JsonSlurper
+import org.apache.commons.io.FileUtils
+import org.json.simple.JSONObject
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Iterator;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+	
+def response = prev.getResponseDataAsString();
+def slurper = new JsonSlurper();
+def list = slurper.parseText(response);
+List&lt;Object&gt; list1 = new ArrayList&lt;Object&gt;();
+List&lt;Object&gt; list2 = new ArrayList&lt;Object&gt;();
+List&lt;String&gt;header = new ArrayList&lt;String&gt;();
+header.add(&quot;id&quot;);
+header.add(&quot;id_org&quot;);
+header.add(&quot;name&quot;);
+
+
+ System.out.println(&quot;header is&quot; +header );
+
+
+for  (int i = 0; i &lt; list.size(); i++)  {
+	jsonobject = list.get(i);  
+
+ id                =jsonobject.get(&quot;id&quot;); 
+ id_org            =jsonobject.get(&quot;id_org&quot;);
+ name              =jsonobject.get(&quot;name&quot;);
+
+
+list1.add(id);
+list1.add(id_org);
+list1.add(name);
+
+}
+for(int i=0; i&lt;list1.size();i++){
+list2.add(list1.get(i));	
+}
+
+//list2.add(header);
+
+
+ 
+System.out.println(&quot;list2 is&quot; + list2  );
+
+XSSFWorkbook workbook  = new XSSFWorkbook();
+XSSFSheet sheet = workbook .createSheet(&quot;sheetName&quot;);
+Row row;
+Cell cell;
+int rowNum=0;
+int cellNum=0;
+int colnum=0;
+row= sheet.createRow(rowNum);
+
+ for(String str:header){
+ 		
+ cell = row.createCell(cellNum++).setCellValue(str);
+
+ }
+
+colnum=cellNum; 
+ rowNum=1;
+ row= sheet.createRow(rowNum++);
+
+  cellNum=0;
+ for(Object obj:list2){
+   if (cellNum==colnum) {
+ row= sheet.createRow(rowNum++);
+ cellNum=0;
+ }   
+ row.createCell(cellNum++).setCellValue(String.valueOf(obj));
+
+ }
+ 
+        
+      
+ try {FileOutputStream out = 
+			new FileOutputStream(new File(&quot;C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result/corps.csv&quot;));
+			workbook.write(out);
+			out.close();
+			System.out.println(&quot;Excel written successfully..&quot;);
+			} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		    } catch (IOException e) {
+			e.printStackTrace();
+  }   
+    
+    
+  
+
+   
+ </stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.JSONPathExtractor guiclass="com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.gui.JSONPathExtractorGui" testclass="com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.JSONPathExtractor" testname="jp@gc - JSON Path Extractor" enabled="true">
+              <stringProp name="VAR">id_org</stringProp>
+              <stringProp name="JSONPATH">$.[1]id_org</stringProp>
+              <stringProp name="DEFAULT">NOT_FOUND</stringProp>
+              <stringProp name="VARIABLE"></stringProp>
+              <stringProp name="SUBJECT">BODY</stringProp>
+            </com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.JSONPathExtractor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="List schms" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+	&quot;id_corp&quot;:${id_org}&#xd;
+	}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/api/bi/schms</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="id_scheme_Regular Expression Extractor" enabled="false">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">id_scheme</stringProp>
+              <stringProp name="RegexExtractor.regex">&quot;id&quot;:(\d+)</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <stringProp name="RegexExtractor.match_number">0</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="id_org_Regular Expression Extractor" enabled="false">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">id_org</stringProp>
+              <stringProp name="RegexExtractor.regex">&quot;id_org&quot;:&quot;(.+?)&quot;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+              <stringProp name="RegexExtractor.match_number">0</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="false">
+              <stringProp name="JSONPostProcessor.referenceNames">id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$..id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">NOT FOUND</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Save_Schems_to_csv" enabled="false">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">49e0c6e2-8fb3-4426-a365-873f5678b707</stringProp>
+              <stringProp name="script">import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Cell;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import groovy.json.JsonSlurper
+import org.apache.commons.io.FileUtils
+import org.json.simple.JSONObject
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Iterator;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+	
+def response = prev.getResponseDataAsString();
+def slurper = new JsonSlurper();
+def list = slurper.parseText(response);
+List&lt;Object&gt; list1 = new ArrayList&lt;Object&gt;();
+List&lt;Object&gt; list2 = new ArrayList&lt;Object&gt;();
+List&lt;String&gt;header = new ArrayList&lt;String&gt;();
+header.add(&quot;id&quot;);
+//header.add(&quot;id_org&quot;);
+//header.add(&quot;org_name&quot;);
+//header.add(&quot;name&quot;);
+//header.add(&quot;head&quot;);
+
+
+ System.out.println(&quot;header is&quot; +header );
+
+
+for  (int i = 0; i &lt; list.size(); i++)  {
+	jsonobject = list.get(i);  
+
+ id                =jsonobject.get(&quot;id&quot;); 
+ //id_org            =jsonobject.get(&quot;id_org&quot;);
+// org_name          =jsonobject.get(&quot;org_name&quot;);
+// name              =jsonobject.get(&quot;name&quot;);
+// head              =jsonobject.get(&quot;head &quot;);
+
+list1.add(id);
+//list1.add(id_org);
+//list1.add(org_name);
+//list1.add(name);
+//list1.add(head);
+
+}
+for(int i=0; i&lt;list1.size();i++){
+list2.add(list1.get(i));	
+}
+
+//list2.add(header);
+
+
+ 
+System.out.println(&quot;list2 is&quot; + list2  );
+
+XSSFWorkbook workbook  = new XSSFWorkbook();
+XSSFSheet sheet = workbook .createSheet(&quot;sheetName&quot;);
+Row row;
+Cell cell;
+int rowNum=0;
+int cellNum=0;
+int colnum=0;
+row= sheet.createRow(rowNum);
+
+ for(String str:header){
+ 		
+ cell = row.createCell(cellNum++).setCellValue(str);
+
+ }
+
+colnum=cellNum; 
+ rowNum=1;
+ row= sheet.createRow(rowNum++);
+
+  cellNum=0;
+ for(Object obj:list2){
+   if (cellNum==colnum) {
+ row= sheet.createRow(rowNum++);
+ cellNum=0;
+ }   
+ row.createCell(cellNum++).setCellValue(String.valueOf(obj));
+
+ }
+ 
+        
+      
+ try {FileOutputStream out = 
+			new FileOutputStream(new File(&quot;C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result/schems.csv&quot;));
+			workbook.write(out);
+			out.close();
+			System.out.println(&quot;Excel written successfully..&quot;);
+			} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		    } catch (IOException e) {
+			e.printStackTrace();
+  }   
+    
+    
+  
+
+   
+ </stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.JSONPathExtractor guiclass="com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.gui.JSONPathExtractorGui" testclass="com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.JSONPathExtractor" testname="jp@gc - JSON Path Extractor" enabled="true">
+              <stringProp name="VAR">id</stringProp>
+              <stringProp name="JSONPATH">$.[0]id</stringProp>
+              <stringProp name="DEFAULT">NOT_FOUND</stringProp>
+              <stringProp name="VARIABLE"></stringProp>
+              <stringProp name="SUBJECT">BODY</stringProp>
+            </com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.JSONPathExtractor>
+            <hashTree/>
+          </hashTree>
+          <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+            <boolProp name="LoopController.continue_forever">true</boolProp>
+            <stringProp name="LoopController.loops">1</stringProp>
+          </LoopController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Moves" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+	&quot;id_scheme&quot;:${id},&#xd;
+	 &quot;datetime&quot;:1494633599&#xd;
+	}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/api/bi/moves</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <boolProp name="HTTPSampler.monitor">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+                <stringProp name="cacheKey"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="script">def ddd = vars.get(&quot;datetime&quot;);
+int k;
+if(ddd==null){
+	k = 1494633599;
+	
+}else {
+     k =	Integer.parseInt(ddd);
+	k= k+ 24*3600;
+ 
+}
+vars.put(&quot;datetime&quot;, k.toString());
+</stringProp>
+                <stringProp name="scriptLanguage">groovy</stringProp>
+              </JSR223PreProcessor>
+              <hashTree/>
+              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223moves" enabled="false">
+                <stringProp name="cacheKey"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="script">/*import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
+import org.json.CDL;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+ 
+def jsonString = prev.getResponseDataAsString() 
+   JSONObject output = new JSONObject(jsonString)
+   JSONArray docs = response.getJSONArray()
+
+ File file=new File(&quot;C:/Users/Diana/.jenkins/workspace/CPT/result/ID.csv&quot;)
+            String csv = CDL.toString(docs);
+            FileUtils.writeStringToFile(file, csv);
+       
+
+*/</stringProp>
+                <stringProp name="scriptLanguage">groovy</stringProp>
+              </JSR223PostProcessor>
+              <hashTree/>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="1652831198">id_type</stringProp>
+                  <stringProp name="-1193624556">id_doc</stringProp>
+                  <stringProp name="841131605">doc_date</stringProp>
+                  <stringProp name="841429298">doc_name</stringProp>
+                  <stringProp name="110308">org</stringProp>
+                  <stringProp name="-991716523">person</stringProp>
+                  <stringProp name="-133374130">discount_card</stringProp>
+                  <stringProp name="1652498359">id_item</stringProp>
+                  <stringProp name="1652347972">id_drug</stringProp>
+                  <stringProp name="-172532941">d_morion</stringProp>
+                  <stringProp name="258721738">drug_name</stringProp>
+                  <stringProp name="-1663305268">supplier</stringProp>
+                  <stringProp name="107940163">quant</stringProp>
+                  <stringProp name="245348626">buy_sum</stringProp>
+                  <stringProp name="1197917150">sell_sum</stringProp>
+                  <stringProp name="-599818981">comp_sum</stringProp>
+                  <stringProp name="116521">vat</stringProp>
+                  <stringProp name="549902925">discount_sum</stringProp>
+                  <stringProp name="949725904">date_expire</stringProp>
+                  <stringProp name="-905838985">series</stringProp>
+                  <stringProp name="-496932397">payment_type</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="false">
+                <stringProp name="FileSaver.filename">C:\Users\diana.chizh.MORION\.jenkins\workspace\CPT\result\move</stringProp>
+                <boolProp name="FileSaver.errorsonly">false</boolProp>
+                <boolProp name="FileSaver.skipautonumber">true</boolProp>
+                <boolProp name="FileSaver.skipsuffix">true</boolProp>
+                <boolProp name="FileSaver.successonly">false</boolProp>
+              </ResultSaver>
+              <hashTree/>
+              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 CreatExslMove" enabled="true">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey">49e0c6e2-8fb3-4426-a365-873f5678b707</stringProp>
+                <stringProp name="script">import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Cell;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import groovy.json.JsonSlurper
+import org.apache.commons.io.FileUtils
+import org.json.simple.JSONObject
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Iterator;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+	
+def response = prev.getResponseDataAsString();
+def slurper = new JsonSlurper();
+def list = slurper.parseText(response);
+List&lt;Object&gt; list1 = new ArrayList&lt;Object&gt;();
+List&lt;Object&gt; list2 = new ArrayList&lt;Object&gt;();
+List&lt;String&gt;header = new ArrayList&lt;String&gt;();
+header.add(&quot;id_type&quot;);
+header.add(&quot;id_doc&quot;);
+header.add(&quot;doc_date&quot;);
+header.add(&quot;doc_name&quot;);
+header.add(&quot;org&quot;);
+header.add(&quot;person&quot;);
+header.add(&quot;discount_card&quot;);
+header.add(&quot;id_item&quot;);
+header.add(&quot;id_drug&quot;);
+header.add(&quot;id_morion&quot;);
+header.add(&quot;drug_name&quot;);
+header.add(&quot;supplier&quot;);
+header.add(&quot;quant&quot;);
+header.add(&quot;buy_sum&quot;);
+header.add(&quot;sell_sum&quot;);
+header.add(&quot;comp_sum&quot;);
+header.add(&quot;vat&quot;);
+header.add(&quot;discount_sum&quot;);
+header.add(&quot;date_expire&quot;);
+header.add(&quot;series&quot;);
+header.add(&quot;payment_type&quot;);
+
+ System.out.println(&quot;header is&quot; +header );
+
+
+for  (int i = 0; i &lt; list.size(); i++)  {
+	jsonobject = list.get(i);  
+
+ id_type           =jsonobject.get(&quot;id_type&quot;); 
+ id_doc            =jsonobject.get(&quot;id_doc&quot;);
+ doc_date          =jsonobject.get(&quot;doc_date&quot;);
+ doc_name          =jsonobject.get(&quot;doc_name&quot;);
+ org               =jsonobject.get(&quot;org&quot;);
+ person            =jsonobject.get(&quot;person&quot;);
+ discount_card     =jsonobject.get(&quot;discount_card&quot;);
+ id_item           =jsonobject.get(&quot;id_item&quot;);
+ id_drug           =jsonobject.get(&quot;id_drug&quot;);
+ id_morion         =jsonobject.get(&quot;id_morion&quot;);
+ drug_name         =jsonobject.get(&quot;drug_name&quot;);
+ supplier          =jsonobject.get(&quot;supplier&quot;);
+ quant             =jsonobject.get(&quot;quant&quot;);
+ buy_sum           =jsonobject.get(&quot;buy_sum&quot;);
+ sell_sum          =jsonobject.get(&quot;sell_sum&quot;);
+ comp_sum          =jsonobject.get(&quot;comp_sum&quot;);
+ vat               =jsonobject.get(&quot;vat&quot;);
+ discount_sum      =jsonobject.get(&quot;discount_sum&quot;);
+ date_expire       =jsonobject.get(&quot;date_expire&quot;);
+ series            =jsonobject.get(&quot;series&quot;);
+ payment_type      =jsonobject.get(&quot;payment_type&quot;);
+
+list1.add(id_type);
+list1.add(id_doc);
+list1.add(doc_date);
+list1.add(doc_name);
+list1.add(org);
+list1.add(person);
+list1.add(discount_card);
+list1.add(id_item);
+list1.add(id_drug);
+list1.add(id_morion);
+list1.add(drug_name);
+list1.add(supplier);
+list1.add(quant);
+list1.add(buy_sum);
+list1.add(sell_sum);
+list1.add(comp_sum);
+list1.add(vat);
+list1.add(discount_sum);
+list1.add(date_expire);
+list1.add(series);
+list1.add(payment_type);
+
+ 
+}
+for(int i=0; i&lt;list1.size();i++){
+list2.add(list1.get(i));	
+}
+
+//list2.add(header);
+
+ 
+System.out.println(&quot;list2 is&quot; + list2  );
+
+XSSFWorkbook workbook  = new XSSFWorkbook();
+XSSFSheet sheet = workbook .createSheet(&quot;sheetName&quot;);
+Row row;
+Cell cell;
+int rowNum=0;
+int cellNum=0;
+int colnum=0;
+row= sheet.createRow(rowNum);
+
+ for(String str:header){
+ 		
+ cell = row.createCell(cellNum++).setCellValue(str);
+
+ }
+
+colnum=cellNum; 
+ rowNum=1;
+ row= sheet.createRow(rowNum++);
+
+  cellNum=0;
+ for(Object obj:list2){
+   if (cellNum==colnum) {
+ row= sheet.createRow(rowNum++);
+ cellNum=0;
+ }   
+ row.createCell(cellNum++).setCellValue(String.valueOf(obj));
+
+ }
+ 
+        
+      
+ try {FileOutputStream out = 
+			new FileOutputStream(new File(&quot;C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result/Moves.xlsx&quot;));
+			workbook.write(out);
+			out.close();
+			System.out.println(&quot;Excel written successfully..&quot;);
+			} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		    } catch (IOException e) {
+			e.printStackTrace();
+  }   
+
+
+
+
+	
+
+
+
+
+	
+
+
+  
+    
+    
+  
+
+   
+ </stringProp>
+              </JSR223PostProcessor>
+              <hashTree/>
+              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Get_data_all_doc" enabled="true">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey"></stringProp>
+                <stringProp name="script">
+import groovy.json.JsonSlurper
+import org.apache.commons.io.FileUtils
+import org.json.simple.JSONObject
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Iterator;
+
+
+def response = prev.getResponseDataAsString();
+def slurper = new JsonSlurper();
+def list = slurper.parseText(response);
+
+def file = new File(&quot;C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result/Data_All_Doc.txt&quot;);
+//file.write(String.valueOf(list))
+
+count_doc = 0
+doc_name = &quot;&quot;
+for(Object obj : list){
+	
+	if(doc_name!=obj.doc_name){
+		if(obj.id_type==10){
+					
+count_doc= count_doc+ 1
+		}
+
+	} 
+	doc_name =obj.doc_name	
+}
+file.write(&quot;Кол-во документов :   &quot;+String.valueOf(count_doc)+&quot;      &quot;)
+
+
+count_quant = 0
+for(Object obj : list){
+	
+	if(obj.id_type==10){
+		
+count_quant += obj.quant
+		}
+		
+}
+	
+file.append(&quot;Колличество позиций&quot;+&quot; :&quot;+String.valueOf(count_quant)+ &quot;    &quot;)
+
+
+count_sum_buy = 0
+for(Object obj : list){
+	
+	if(obj.id_type==10){
+		
+count_sum_buy += obj.buy_sum
+
+	}
+	
+	}
+	
+file.append(&quot;Сумма закупочная:    &quot;+String.valueOf(count_sum_buy)+ &quot;    &quot;)
+
+count_sum_sell = 0
+for(Object obj : list){
+	
+	if(obj.id_type==10){
+		
+count_sum_sell+= obj.sell_sum
+
+
+	}
+	
+	}
+	
+file.append(&quot;Сумма отпускная:    &quot;+String.valueOf(count_sum_sell)+ &quot;    &quot;)
+</stringProp>
+              </JSR223PostProcessor>
+              <hashTree/>
+              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Get_data_by_one_doc" enabled="true">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey"></stringProp>
+                <stringProp name="script">
+import groovy.json.JsonSlurper
+import org.apache.commons.io.FileUtils
+import org.json.simple.JSONObject
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Iterator;
+
+
+def response = prev.getResponseDataAsString();
+def slurper = new JsonSlurper();
+def list = slurper.parseText(response);
+
+def file = new File(&quot;C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result/By_one_doc.txt&quot;);
+//file.write(String.valueOf(list))
+
+count_doc = 0
+doc_name = &quot;&quot;
+for(Object obj : list){
+	
+	if(doc_name!=obj.doc_name){
+		if(obj.id_type==10){
+					
+count_doc= count_doc+ 1
+		}
+
+	} 
+	doc_name =obj.doc_name	
+}
+file.write(&quot;Кол-во документов :   &quot;+String.valueOf(count_doc)+&quot;      &quot;)
+
+
+count_quant = 0
+for(Object obj : list){
+	
+	if(obj.id_type==10 &amp;&amp; obj.doc_name==&quot;ПМ-0000026&quot;){
+		
+count_quant += obj.quant
+		}
+		
+}
+	
+file.append(&quot;Колличество позиций&quot;+&quot; :&quot;+String.valueOf(count_quant)+ &quot;    &quot;)
+
+
+count_sum_buy = 0
+for(Object obj : list){
+	
+	if(obj.id_type==10 &amp;&amp; obj.doc_name==&quot;ПМ-0000026&quot;){
+		
+count_sum_buy += obj.buy_sum
+
+	}
+	
+	}
+	
+file.append(&quot;Сумма закупочная:    &quot;+String.valueOf(count_sum_buy)+ &quot;    &quot;)
+
+count_sum_sell = 0
+for(Object obj : list){
+	
+	if(obj.id_type==10 &amp;&amp; obj.doc_name==&quot;ПМ-0000026&quot;){
+		
+count_sum_sell+= obj.sell_sum
+
+
+	}
+	
+	}
+	
+file.append(&quot;Сумма отпускная:    &quot;+String.valueOf(count_sum_sell)+ &quot;    &quot;)
+</stringProp>
+              </JSR223PostProcessor>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Stocks" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+	&quot;id_scheme&quot;:${id},&#xd;
+	&quot;datetime&quot; :1494633599&#xd;
+	}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/api/bi/stocks</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="1652347972">id_drug</stringProp>
+                <stringProp name="-976690532">id_morion</stringProp>
+                <stringProp name="258721738">drug_name</stringProp>
+                <stringProp name="-1663305268">supplier</stringProp>
+                <stringProp name="107940163">quant</stringProp>
+                <stringProp name="245348626">buy_sum</stringProp>
+                <stringProp name="116521">vat</stringProp>
+                <stringProp name="949725904">date_expire</stringProp>
+                <stringProp name="-905838985">series</stringProp>
+                <stringProp name="-496932397">payment_type</stringProp>
+                <stringProp name="-827984391">stock_start</stringProp>
+                <stringProp name="-842985585">stock_close</stringProp>
+                <stringProp name="665562935">stock_date</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="false">
+              <stringProp name="FileSaver.filename">C:\Users\diana.chizh.MORION\.jenkins\workspace\CPT\result\stocs</stringProp>
+              <boolProp name="FileSaver.errorsonly">false</boolProp>
+              <boolProp name="FileSaver.skipautonumber">true</boolProp>
+              <boolProp name="FileSaver.skipsuffix">true</boolProp>
+              <boolProp name="FileSaver.successonly">false</boolProp>
+            </ResultSaver>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="false">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey"></stringProp>
+              <stringProp name="script">import groovy.json.JsonSlurper
+import org.apache.commons.io.FileUtils
+import org.json.simple.JSONObject
+import org.json.simple.JSONArray;
+
+
+//def response = context.expand( ${Stocks} )
+def response = prev.getResponseDataAsString()
+def slurper = new JsonSlurper()
+def list = slurper.parseText(response)
+ //JSONObject obj = new JSONObject(list)
+ //JSONArray jsonArray = new JSONArray(list);
+
+list.each { println it }
+def idDrug = list.id_drug
+
+for (Object obj: list) {
+     string = String.valueOf(obj);
+     File file = new File(&quot;C:/Users/Diana/.jenkins/workspace/CPT/result/ID.csv&quot;)
+     
+ // if(file!= null){
+  	
+  	//FileUtils.writeStringToFile(file, &quot;&quot;)
+  	
+ // }
+    
+  FileUtils.writeStringToFile(file, string + System.getProperty(&quot;line.separator&quot;), true)
+}
+
+
+//log.info list
+//def index = json.find{it.d_drug ==495786}
+//list.each{FileUtils.writeStringToFile(new File(&quot;C:/Users/Diana/.jenkins/workspace/CPT/result/ID.csv&quot;), it + System.getProperty(&quot;line.separator&quot;), true)}
+
+
+ 
+
+ 
+ </stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 CreatExslStock" enabled="false">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">49e0c6e2-8fb3-4426-a365-873f5678b707</stringProp>
+              <stringProp name="script">import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Cell;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import groovy.json.JsonSlurper
+import org.apache.commons.io.FileUtils
+import org.json.simple.JSONObject
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Iterator;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+	
+def response = prev.getResponseDataAsString();
+def slurper = new JsonSlurper();
+def list = slurper.parseText(response);
+List&lt;Object&gt; list1 = new ArrayList&lt;Object&gt;();
+List&lt;Object&gt; list2 = new ArrayList&lt;Object&gt;();
+List&lt;String&gt;header = new ArrayList&lt;String&gt;();
+//header.add(&quot;id_type&quot;);
+//header.add(&quot;id_doc&quot;);
+//header.add(&quot;doc_date&quot;);
+//header.add(&quot;doc_name&quot;);
+//header.add(&quot;org&quot;);
+//header.add(&quot;person&quot;);
+//header.add(&quot;discount_card&quot;);
+//header.add(&quot;id_item&quot;);
+header.add(&quot;id_drug&quot;);
+header.add(&quot;id_morion&quot;);
+header.add(&quot;drug_name&quot;);
+header.add(&quot;supplier&quot;);
+header.add(&quot;quant&quot;);
+header.add(&quot;buy_sum&quot;);
+//header.add(&quot;sell_sum&quot;);
+//header.add(&quot;comp_sum&quot;);
+header.add(&quot;vat&quot;);
+//header.add(&quot;discount_sum&quot;);
+header.add(&quot;date_expire&quot;);
+header.add(&quot;series&quot;);
+header.add(&quot;payment_type&quot;);
+header.add(&quot;stock_start&quot;);
+header.add(&quot;stock_close&quot;);
+header.add(&quot;stock_date&quot;);
+
+ System.out.println(&quot;header is&quot; +header );
+
+
+for  (int i = 0; i &lt; list.size(); i++)  {
+	jsonobject = list.get(i);  
+
+ id_drug          =jsonobject.get(&quot;id_drug&quot;); 
+ id_morion            =jsonobject.get(&quot;id_morion&quot;);
+ drug_name          =jsonobject.get(&quot;drug_name&quot;);
+ supplier          =jsonobject.get(&quot;supplier&quot;);
+ quant              =jsonobject.get(&quot;quant&quot;);
+ buy_sum            =jsonobject.get(&quot;buy_sum&quot;);
+ vat                =jsonobject.get(&quot;vat&quot;);
+ date_expire           =jsonobject.get(&quot;date_expire&quot;);
+ series           =jsonobject.get(&quot;series&quot;);
+ payment_type         =jsonobject.get(&quot;payment_type&quot;);
+ stock_start        =jsonobject.get(&quot;stock_start&quot;);
+ stock_close         =jsonobject.get(&quot;stock_close&quot;);
+ stock_date           =jsonobject.get(&quot;stock_date&quot;);
+ 
+
+list1.add(id_drug);
+list1.add(id_morion);
+list1.add(drug_name);
+list1.add(supplier);
+list1.add(quant);
+list1.add(buy_sum);
+list1.add(vat);
+list1.add(date_expire);
+list1.add(series);
+list1.add(payment_type);
+list1.add(stock_start);
+list1.add(stock_close);
+list1.add(stock_date);
+
+
+ 
+}
+for(int i=0; i&lt;list1.size();i++){
+list2.add(list1.get(i));	
+}
+
+//list2.add(header);
+
+
+ 
+System.out.println(&quot;list2 is&quot; + list2  );
+
+XSSFWorkbook workbook  = new XSSFWorkbook();
+XSSFSheet sheet = workbook .createSheet(&quot;sheetName&quot;);
+Row row;
+Cell cell;
+int rowNum=0;
+int cellNum=0;
+int colnum=0;
+row= sheet.createRow(rowNum);
+
+ for(String str:header){
+ 		
+ cell = row.createCell(cellNum++).setCellValue(str);
+
+ }
+
+colnum=cellNum; 
+ rowNum=1;
+ row= sheet.createRow(rowNum++);
+
+  cellNum=0;
+ for(Object obj:list2){
+   if (cellNum==colnum) {
+ row= sheet.createRow(rowNum++);
+ cellNum=0;
+ }   
+ row.createCell(cellNum++).setCellValue(String.valueOf(obj));
+
+ }
+ 
+        
+      
+ try {FileOutputStream out = 
+			new FileOutputStream(new File(&quot;C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result/stocks.xlsx&quot;));
+			workbook.write(out);
+			out.close();
+			System.out.println(&quot;Excel written successfully..&quot;);
+			} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		    } catch (IOException e) {
+			e.printStackTrace();
+  }   
+    
+    
+  
+
+   
+ </stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Get_data_all_stocks" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey"></stringProp>
+              <stringProp name="script">
+import groovy.json.JsonSlurper
+import org.apache.commons.io.FileUtils
+import org.json.simple.JSONObject
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Iterator;
+
+
+def response = prev.getResponseDataAsString();
+def slurper = new JsonSlurper();
+def list = slurper.parseText(response);
+
+def file = new File(&quot;C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result/Data_All_Stocks.txt&quot;);
+//file.write(String.valueOf(list))
+
+count_doc = 0
+//doc_name = &quot;&quot;
+for(Object obj : list){
+				
+count_doc= count_doc+ 1
+		
+	
+}
+file.write(&quot;Кол-во документов :   &quot;+String.valueOf(count_doc)+&quot;      &quot;)
+
+
+count_quant = 0
+for(Object obj : list){
+	
+		
+count_quant += obj.quant
+		
+		
+}
+	
+file.append(&quot;Колличество позиций&quot;+&quot; :&quot;+String.valueOf(count_quant)+ &quot;    &quot;)
+
+
+count_sum_buy = 0
+for(Object obj : list){
+			
+count_sum_buy += obj.buy_sum
+		
+}
+	
+file.append(&quot;Сумма закупочная:    &quot;+String.valueOf(count_sum_buy)+ &quot;    &quot;)
+
+
+</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Get_data_by_id_stocks" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey"></stringProp>
+              <stringProp name="script">
+import groovy.json.JsonSlurper
+import org.apache.commons.io.FileUtils
+import org.json.simple.JSONObject
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Iterator;
+
+
+def response = prev.getResponseDataAsString();
+def slurper = new JsonSlurper();
+def list = slurper.parseText(response);
+
+def file = new File(&quot;C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result/Data_id_Stocks.txt&quot;);
+//file.write(String.valueOf(list))
+
+
+
+count_doc = 0
+//doc_name = &quot;&quot;
+for(Object obj : list){
+				
+count_doc= count_doc+ 1
+		
+	
+}
+file.write(&quot;Кол-во документов :   &quot;+String.valueOf(count_doc)+&quot;      &quot;)
+
+id_morion = 0
+for(Object obj : list){
+	if(obj.id_morion == 90580){
+					
+id_morion += obj.id_morion
+		}		
+}
+file.append(&quot;Код мориона:    &quot;+String.valueOf(id_morion)+ &quot;    &quot;)
+
+
+count_quant = 0
+for(Object obj : list){
+	
+ if(obj.id_morion == 90580){	
+		
+count_quant += obj.quant
+ }		
+		
+}
+	
+file.append(&quot;Колличество позиций&quot;+&quot; :&quot;+String.valueOf(count_quant)+ &quot;    &quot;)
+
+
+count_sum_buy = 0
+for(Object obj : list){
+	if(obj.id_morion == 90580){
+					
+count_sum_buy += obj.buy_sum
+		}		
+}
+file.append(&quot;Сумма закупочная:    &quot;+String.valueOf(count_sum_buy)+ &quot;    &quot;)
+
+
+stock_start = 0
+for(Object obj : list){
+	if(obj.id_morion ==90580){
+					
+stock_start += obj.stock_start
+		}
+		
+}
+	
+file.append(&quot;Начало остатка:    &quot;+String.valueOf(stock_start)+ &quot;    &quot;)
+
+
+stock_close = 0
+for(Object obj : list){
+	if(obj.id_morion ==90580){
+					
+stock_close += obj.stock_close
+		}
+		
+}
+
+file.append(&quot;Конец остатка:    &quot;+String.valueOf(stock_close)+ &quot;    &quot;)
+
+
+stock_date = 0
+for(Object obj : list){
+	if(obj.id_morion == 90580){
+					
+stock_date += obj.stock_date
+		}
+		
+}
+
+file.append(&quot;Дата остатка:    &quot;+String.valueOf(stock_date)+ &quot;    &quot;)
+
+
+
+</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+          <ru.pflb.jmeter.samplers.TailHTTPSamplerProxy guiclass="ru.pflb.jmeter.samplers.TailHttpSamplerGui" testclass="ru.pflb.jmeter.samplers.TailHTTPSamplerProxy" testname="pflb - HTTP Request Tail1" enabled="false">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+            <stringProp name="HTTPSampler.path">/api/auth</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+            <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">true</boolProp>
+            <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+            <boolProp name="HTTPSampler.image_parser">true</boolProp>
+            <boolProp name="HTTPSampler.concurrentDwn">true</boolProp>
+            <stringProp name="HTTPSampler.concurrentPool">10</stringProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="Tail.Links"></stringProp>
+            <stringProp name="Tail.Content">&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Embedded resources&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</stringProp>
+          </ru.pflb.jmeter.samplers.TailHTTPSamplerProxy>
+          <hashTree/>
+          <ru.pflb.jmeter.samplers.TailHTTPSamplerProxy guiclass="ru.pflb.jmeter.samplers.TailHttpSamplerGui" testclass="ru.pflb.jmeter.samplers.TailHTTPSamplerProxy" testname="pflb - HTTP Request Tail2" enabled="false">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+            <stringProp name="HTTPSampler.path">/api/auth</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+            <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">true</boolProp>
+            <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+            <boolProp name="HTTPSampler.image_parser">true</boolProp>
+            <boolProp name="HTTPSampler.concurrentDwn">true</boolProp>
+            <stringProp name="HTTPSampler.concurrentPool">10</stringProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="Tail.Links"></stringProp>
+            <stringProp name="Tail.Content">&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Embedded resources&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</stringProp>
+          </ru.pflb.jmeter.samplers.TailHTTPSamplerProxy>
+          <hashTree/>
+          <ru.pflb.jmeter.samplers.TailHTTPSamplerProxy guiclass="ru.pflb.jmeter.samplers.TailHttpSamplerGui" testclass="ru.pflb.jmeter.samplers.TailHTTPSamplerProxy" testname="pflb - HTTP Request Tail3" enabled="false">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+            <stringProp name="HTTPSampler.path">/api/auth</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+            <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">true</boolProp>
+            <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+            <boolProp name="HTTPSampler.image_parser">true</boolProp>
+            <boolProp name="HTTPSampler.concurrentDwn">true</boolProp>
+            <stringProp name="HTTPSampler.concurrentPool">10</stringProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="Tail.Links"></stringProp>
+            <stringProp name="Tail.Content">&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Embedded resources&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</stringProp>
+          </ru.pflb.jmeter.samplers.TailHTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+        <com.blazemeter.jmeter.controller.ParallelSampler guiclass="com.blazemeter.jmeter.controller.ParallelControllerGui" testclass="com.blazemeter.jmeter.controller.ParallelSampler" testname="bzm - Parallel Controller" enabled="false">
+          <boolProp name="PARENT_SAMPLE">true</boolProp>
+        </com.blazemeter.jmeter.controller.ParallelSampler>
+        <hashTree/>
+      </hashTree>
+      <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.TransactionsPerSecondGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Transactions per Second" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>false</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>false</code>
+            <message>false</message>
+            <threadName>false</threadName>
+            <dataType>false</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>true</responseData>
+            <samplerData>true</samplerData>
+            <xml>true</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>true</responseHeaders>
+            <requestHeaders>true</requestHeaders>
+            <responseDataOnError>true</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>2</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <hostname>true</hostname>
+            <idleTime>true</idleTime>
+          </value>
+        </objProp>
+        <stringProp name="filename">C:\Users\diana.chizh.MORION\.jenkins\workspace\CPT\result\result.jtl</stringProp>
+        <longProp name="interval_grouping">1000</longProp>
+        <boolProp name="graph_aggregated">false</boolProp>
+        <stringProp name="include_sample_labels"></stringProp>
+        <stringProp name="exclude_sample_labels"></stringProp>
+        <stringProp name="start_offset"></stringProp>
+        <stringProp name="end_offset"></stringProp>
+        <boolProp name="include_checkbox_state">false</boolProp>
+        <boolProp name="exclude_checkbox_state">false</boolProp>
+      </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
+      <hashTree/>
+      <kg.apc.jmeter.listener.GraphsGeneratorListener guiclass="TestBeanGUI" testclass="kg.apc.jmeter.listener.GraphsGeneratorListener" testname="jp@gc - Graphs Generator" enabled="false">
+        <stringProp name="outputBaseFolder">C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result</stringProp>
+        <stringProp name="resultsFileName">C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result/result.jtl</stringProp>
+        <intProp name="exportMode">0</intProp>
+        <stringProp name="filePrefix"></stringProp>
+        <intProp name="graphWidth">800</intProp>
+        <intProp name="graphHeight">600</intProp>
+        <stringProp name="paintMarkers">Undefined</stringProp>
+        <boolProp name="paintZeroing">true</boolProp>
+        <boolProp name="paintGradient">true</boolProp>
+        <boolProp name="preventOutliers">false</boolProp>
+        <boolProp name="relativeTimes">false</boolProp>
+        <boolProp name="autoScaleRows">false</boolProp>
+        <stringProp name="limitRows">150</stringProp>
+        <stringProp name="forceY"></stringProp>
+        <stringProp name="granulation">60000</stringProp>
+        <stringProp name="lineWeight"></stringProp>
+        <boolProp name="aggregateRows">false</boolProp>
+        <stringProp name="lowCountLimit"></stringProp>
+        <stringProp name="successFilter"></stringProp>
+        <boolProp name="includeSamplesWithRegex">false</boolProp>
+        <stringProp name="includeLabels"></stringProp>
+        <boolProp name="excludeSamplesWithRegex">false</boolProp>
+        <stringProp name="excludeLabels"></stringProp>
+        <stringProp name="startOffset"></stringProp>
+        <stringProp name="endOffset"></stringProp>
+      </kg.apc.jmeter.listener.GraphsGeneratorListener>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>false</time>
+            <latency>false</latency>
+            <timestamp>false</timestamp>
+            <success>false</success>
+            <label>false</label>
+            <code>false</code>
+            <message>false</message>
+            <threadName>false</threadName>
+            <dataType>false</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>true</samplerData>
+            <xml>true</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>true</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>2</assertionsResultsToSave>
+          </value>
+        </objProp>
+        <stringProp name="filename">C:\Users\diana.chizh.MORION\.jenkins\workspace\CPT\result\result.jtl</stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>false</time>
+            <latency>false</latency>
+            <timestamp>false</timestamp>
+            <success>false</success>
+            <label>false</label>
+            <code>false</code>
+            <message>false</message>
+            <threadName>false</threadName>
+            <dataType>false</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>true</samplerData>
+            <xml>true</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>true</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>2</assertionsResultsToSave>
+          </value>
+        </objProp>
+        <stringProp name="filename">C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result/result.jtl</stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="false">
+        <stringProp name="FileSaver.filename">C:\Users\diana.chizh.MORION\.jenkins\workspace\CPT\result\result.jtl</stringProp>
+        <boolProp name="FileSaver.errorsonly">false</boolProp>
+        <boolProp name="FileSaver.skipautonumber">true</boolProp>
+        <boolProp name="FileSaver.skipsuffix">true</boolProp>
+        <boolProp name="FileSaver.successonly">false</boolProp>
+      </ResultSaver>
+      <hashTree/>
+      <ResultCollector guiclass="SimpleDataWriter" testclass="ResultCollector" testname="Simple Data Writer" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>false</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>false</code>
+            <message>false</message>
+            <threadName>true</threadName>
+            <dataType>false</dataType>
+            <encoding>false</encoding>
+            <assertions>false</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>true</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>2</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename">C:\Users\diana.chizh.MORION\.jenkins\workspace\CPT\result\result.jtl</stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>true</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>false</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>false</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>true</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>true</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename">C:/Users/diana.chizh.MORION/.jenkins/workspace/CPT/result/result.jtl</stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
